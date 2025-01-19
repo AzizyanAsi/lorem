@@ -1,0 +1,43 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: history-reports
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/lorem_db
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    topics:
+      words-processed:
+        name: ${KAFKA_TOPIC_WORDS_PROCESSED:words.processed}
+    consumer:
+      group-id: consumer-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      concurrency: 4
+
+logging:
+  level:
+    root: info
+    org.springframework: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

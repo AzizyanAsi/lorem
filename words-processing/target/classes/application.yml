@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: words-processing
+
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BROKER:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    topics:
+      words-processed:
+        name: ${KAFKA_TOPIC_WORDS_PROCESSED:words.processed}
+        partitions: ${KAFKA_TOPIC_PARTITIONS_WORDS_PROCESSED:4}
+        retention: ${KAFKA_TOPIC_RETENTION_WORDS_PROCESSED:30m}
+
+# Application-specific properties
+lorem:
+  api:
+    url: "https://www.loripsum.net/api/%d/%s"
+
+logging:
+  level:
+    root: info
+    org.springframework: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
