@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 
@@ -27,5 +28,10 @@ class KafkaConfig {
                 .partitions(partitions)
                 .config(TopicConfig.RETENTION_MS_CONFIG, String.valueOf(retention.toMillis()))
                 .build();
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

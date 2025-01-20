@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class WordProcessingServiceImpl implements WordProcessingService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${lorem.api.url}")
     private String loremApiUrl;
